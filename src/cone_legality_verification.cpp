@@ -38,14 +38,17 @@ void coneReconstruction(const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     pcl::fromROSMsg(*cloud_msg, *cloud);
 
     // Voxel grid downsampling
-    pcl::VoxelGrid<pcl::PointXYZ> vg;
-    vg.setInputCloud(cloud);
-    vg.setLeafSize(0.05, 0.05, 0.05);
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_downsampled(new pcl::PointCloud<pcl::PointXYZ>);
-    vg.filter(*cloud_downsampled);
+    //pcl::VoxelGrid<pcl::PointXYZ> vg;
+    //vg.setInputCloud(cloud);
+    //vg.setLeafSize(0.05, 0.05, 0.05);
+    //pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_downsampled(new pcl::PointCloud<pcl::PointXYZ>);
+    //vg.filter(*cloud_downsampled);
+
+    //pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>);
+    //tree->setInputCloud(cloud_downsampled);
 
     pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>);
-    tree->setInputCloud(cloud_downsampled);
+    tree->setInputCloud(cloud);
 
     pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
     ec.setClusterTolerance(0.19);

@@ -17,8 +17,8 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     // 定义视野修剪框的范围
     pcl::CropBox<pcl::PointXYZ> crop;
     crop.setInputCloud(cloud);
-    crop.setMin(Eigen::Vector4f(-1.0, -1.0, -1.0, 1.0));  // 定义修剪框的最小范围
-    crop.setMax(Eigen::Vector4f(2.0, 1.0, 2.0, 1.0));     // 定义修剪框的最大范围
+    crop.setMin(Eigen::Vector4f(-4.0, 0.0, -1.0, 1.0));  // 定义修剪框的最小范围
+    crop.setMax(Eigen::Vector4f(2.0, 7.0, 2.0, 1.0));     // 定义修剪框的最大范围
     pcl::PointCloud<pcl::PointXYZ> cropped_cloud;
     crop.filter(cropped_cloud);
 
@@ -35,7 +35,7 @@ int main(int argc, char** argv)
     ros::NodeHandle nh;
 
     // 订阅原始点云主题
-    ros::Subscriber sub = nh.subscribe<sensor_msgs::PointCloud2>("/velodyne_points", 1, cloudCallback);
+    ros::Subscriber sub = nh.subscribe<sensor_msgs::PointCloud2>("/rslidar_points", 1, cloudCallback);
 
     // 创建点云发布者
     pub = nh.advertise<sensor_msgs::PointCloud2>("/field_of_view_trimming", 1);
