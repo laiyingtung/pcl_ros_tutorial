@@ -11,6 +11,8 @@
 #include <pcl/common/centroid.h>
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
+//#include <pcl/filters/passthrough.h>
+
 
 ros::Publisher pub;
 ros::Publisher marker_pub;
@@ -47,8 +49,30 @@ void coneReconstruction(const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     //pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>);
     //tree->setInputCloud(cloud_downsampled);
 
+    
+    // 移除點雲中的 NaN 值
+    // pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered(new pcl::PointCloud<pcl::PointXYZ>);
+    // std::vector<int> indices;
+    // pcl::removeNaNFromPointCloud(*cloud, *cloud_filtered, indices);
+    
+    //篩選點雲中三個維度的數據
+    // pcl::PassThrough<pcl::PointXYZ> pass;
+    // pass.setInputCloud(cloud_filtered);
+    // pass.setFilterFieldName("x"); // 過濾 X 軸
+    // pass.setFilterLimits(-100.0, 100.0); // 設定合理的範圍
+    // pass.filter(*cloud_filtered);
+
+    // pass.setFilterFieldName("y"); // 過濾 Y 軸
+    // pass.setFilterLimits(-100.0, 100.0);
+    // pass.filter(*cloud_filtered);
+
+    // pass.setFilterFieldName("z"); // 過濾 Z 軸
+    // pass.setFilterLimits(0.0, 10.0); // 假設 Z 軸應該在此範圍
+    // pass.filter(*cloud_filtered);
+
     pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>);
     tree->setInputCloud(cloud);
+    
 
     pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
     ec.setClusterTolerance(0.19);

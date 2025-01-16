@@ -226,6 +226,9 @@ target_link_libraries(reconstructed_cone ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 add_executable(cone_legality_verification src/cone_legality_verification.cpp)
 target_link_libraries(cone_legality_verification ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
+add_executable(downsampling src/downsampling.cpp)
+target_link_libraries(downsampling ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+
 #add_executable(rotating_pointclouds src/rotating_pointclouds.cpp)
 #target_link_libraries(rotating_pointclouds ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 

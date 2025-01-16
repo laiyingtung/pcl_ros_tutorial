@@ -17,8 +17,8 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     // 定义视野修剪框的范围
     pcl::CropBox<pcl::PointXYZ> crop;
     crop.setInputCloud(cloud);
-    crop.setMin(Eigen::Vector4f(-4.0, 0.0, -1.0, 1.0));  // 定义修剪框的最小范围
-    crop.setMax(Eigen::Vector4f(2.0, 7.0, 2.0, 1.0));     // 定义修剪框的最大范围
+    crop.setMin(Eigen::Vector4f(-3.0, 0.0, -1.0, 1.0));  // 定义修剪框的最小范围
+    crop.setMax(Eigen::Vector4f(3.0, 15.0, 2.0, 1.0));     // 定义修剪框的最大范围
     pcl::PointCloud<pcl::PointXYZ> cropped_cloud;
     crop.filter(cropped_cloud);
 
